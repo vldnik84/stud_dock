@@ -1,0 +1,39 @@
+# Working Environment
+version: '2'
+services:
+    mysql:
+        container_name: stud_mysql
+        build: ./mysql
+        ports:
+            - 3308:3306
+        volumes:
+            - ./mysql/data:/var/lib/mysql
+            - ./mysql/stud.cnf:/etc/mysql/conf.d/stud.cnf
+        restart: always
+
+
+    apache:
+        container_name: stud_apache
+        build: ./apache
+        volumes:
+            - ../stud_app:/var/www/back
+            - ../stud_fram:/home/vladnik/projects/stud_site/stud_fram
+            - ./phpmyadmin:/var/www/phpmyadmin
+            - ./apache/vhost.conf:/etc/apache2/sites-enabled/app.conf
+        working_dir: /var/www/back/public
+        ports:
+            - 81:80
+            - 444:443
+        restart: always
+
+
+    node:
+        container_name: stud_node
+        image: node:latest
+        volumes:
+            - ../stud_front:/app
+        working_dir: /app
+        ports:
+            - 82:8080
+        command: sh -c "npm i -q && npm run dev"
+        restart: always

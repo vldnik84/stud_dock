@@ -1,0 +1,3 @@
+# Created by vldnik84
+/mysql/data/*
+!*.gitkeep
