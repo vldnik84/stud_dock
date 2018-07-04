@@ -6,10 +6,11 @@ Created as an example for S.P.A. Course listeners
 
 ### Installation and setup
 - Install Docker and Docker Compose following the instruction provided below
-- Download and deploy this docker configuration to your local machine with  `git clone --recurse-submodules git@github.com:vldnik84/stud_dock.git` command
+- Download and deploy this docker configuration to your local machine: `git clone --recurse-submodules git@github.com:vldnik84/stud_dock.git`
 - Set up your configuration within **docker-compose.yml** and **apache/vhost.conf** files
 - Change **/etc/hosts** according to your apache configuration
 - Run `./restart.sh` from this folder under console to start Docker Compose environment
+- Configure PHPMyAdmin following the instruction provided below
 - Visit your application URLs in your browser
 
 #### Install Docker
@@ -61,3 +62,8 @@ docker-compose --version
 sudo usermod -a -G docker username
 ```
 **Logout and Login**
+
+#### PHPMyAdmin configuration
+- In `phpmyadmin` folder make a copy of its sample configuration file: `cp config.sample.inc.php config.inc.php`
+- In this file change the sql host name to **mysql**: `$cfg['Servers'][$i]['host'] = 'mysql';`
+- Enter apache docker with `docker-compose exec apache /bin/bash` command and in `/var/www/phpmyadmin` folder execute `composer install`
