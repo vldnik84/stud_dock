@@ -17,18 +17,22 @@ services:
         restart: always
 
 
-    apache:
-        container_name: stud_apache
-        build: ./apache
+    nginx:
+        container_name: stud_nginx
+        build: ./nginx
         volumes:
-            - ../stud_app:/var/www/back
-            - ../stud_fram:/home/vladnik/projects/stud_site/stud_fram
             - ./phpmyadmin:/var/www/phpmyadmin
-            - ./apache/vhost.conf:/etc/apache2/sites-enabled/app.conf
-        working_dir: /var/www/back/public
+            - ./nginx/stud.conf:/etc/nginx/conf.d/stud.conf
+            - ./nginx/sites:/etc/nginx/sites-enabled
+            - ./nginx/entrypoint.sh:/sbin/entrypoint.sh
+        working_dir: /var/www/html
+        environment:
+            - MADM_DIR=/var/www/phpmyadmin
+            - DB_CONT=mysql
         ports:
             - 81:80
             - 444:443
+        command: entrypoint.sh
         restart: always
 
 
