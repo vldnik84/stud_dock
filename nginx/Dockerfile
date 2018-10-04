@@ -21,7 +21,7 @@ RUN	\
     # Install core apps
     && apt-get install -y curl nginx git \
     # Install PHP with modules
-    && apt-get install -y php7.2-fpm php7.2-cli php7.2-readline php7.2-mbstring php7.2-zip \
+    && apt-get install -y php7.2-fpm php7.2-cli php7.2-readline php7.2-mbstring php7.2-zip php7.2-common \
     && apt-get install -y php7.2-intl php7.2-xml php7.2-json php7.2-curl php7.2-gd php7.2-pgsql php7.2-mysql php-pear php-xdebug \
     # Install composer v1.6.5
     && curl -sS https://getcomposer.org/installer | php -- --version=1.6.5 --install-dir=/usr/local/bin --filename=composer \
